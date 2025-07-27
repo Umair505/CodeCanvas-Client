@@ -4,7 +4,7 @@ import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
 import useAuth from '../../hooks/useAuth'
 import { toast } from 'react-hot-toast'
 import { TbFidgetSpinner } from 'react-icons/tb'
-import { uploadImage } from '../../api/utils'
+import { saveUserInDb, uploadImage } from '../../api/utils'
 import signUpImg from '../../assets/images/signup.png'
 import { motion } from 'framer-motion'
 import { useState, useRef } from 'react'
@@ -43,6 +43,14 @@ const SignUp = () => {
       const result = await createUser(email, password)
       await updateUserProfile(name, imageUrl)
 
+      const userData = {
+        name,
+        email,
+        image: imageUrl,
+      }
+      // Save user data in db
+      await saveUserInDb(userData)
+
       navigate('/')
       toast.success('Welcome to CodeCanvas!', {
         style: {
@@ -63,7 +71,13 @@ const SignUp = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle()
+      const result = await signInWithGoogle()
+      const userData = {
+        name: result?.user?.displayName,
+        email: result?.user?.email,
+        image: result?.user?.photoURL,
+      }
+      await saveUserInDb(userData)
       navigate('/')
       toast.success('Google signup successful!', {
         style: {

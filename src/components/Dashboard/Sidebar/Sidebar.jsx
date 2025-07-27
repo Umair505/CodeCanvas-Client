@@ -20,7 +20,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const { user, logOut } = useAuth();
 
   const customerMenu = [
-    { name: 'Home', icon: <FiHome />, path: '/dashboard' },
     { name: 'My Profile', icon: <FiUser />, path: '/dashboard/profile' },
     { name: 'Add Product', icon: <FiPlusSquare />, path: '/dashboard/add-product' },
     { name: 'My Products', icon: <FiShoppingBag />, path: '/dashboard/products' },
@@ -63,7 +62,21 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             <p className="text-xs text-[#b8b8b8]">{user?.email || ''}</p>
           </div>
         </div>
-
+        
+          <div className="px-2">
+          <NavLink
+                    to='/'
+                    className={({ isActive }) => `flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
+                      isActive
+                        ? 'bg-[#9d00ff]/20 text-[#00f5ff]'
+                        : 'text-[#b8b8b8] hover:bg-[#9d00ff]/10 hover:text-[#00f5ff]'
+                    }`}
+                    onClick={() => setSidebarOpen(false)}
+                  >
+                    <span className="mr-3 text-lg"><FiHome /></span>
+                    Home
+        </NavLink>
+          </div>
         {/* Menu Items */}
         <nav className="flex-1 overflow-y-auto py-4">
           <div className="px-2">

@@ -6,7 +6,7 @@ import SignUp from '../pages/SignUp/SignUp'
 import PlantDetails from '../pages/PlantDetails/PlantDetails'
 import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
-import AddPlant from '../pages/Dashboard/Seller/AddPlant'
+import AddProduct from '../pages/Dashboard/Seller/AddProduct'
 import ManageUsers from '../pages/Dashboard/Admin/ManageUsers'
 import Profile from '../pages/Dashboard/Common/Profile'
 import Statistics from '../pages/Dashboard/Common/Statistics'
@@ -14,6 +14,7 @@ import MainLayout from '../layouts/MainLayout'
 import MyInventory from '../pages/Dashboard/Seller/MyInventory'
 import ManageOrders from '../pages/Dashboard/Seller/ManageOrders'
 import MyOrders from '../pages/Dashboard/Customer/MyOrders'
+import Products from '../components/Home/Products'
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +24,6 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        loader:() => fetch(`${import.meta.env.VITE_API_URL}/plants`),
         element: <Home />,
       },
       {
@@ -53,10 +53,18 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'add-plant',
+        path: 'add-product',
         element: (
           <PrivateRoute>
-            <AddPlant />
+            <AddProduct />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'products',
+        element: (
+          <PrivateRoute>
+            <Products />
           </PrivateRoute>
         ),
       },

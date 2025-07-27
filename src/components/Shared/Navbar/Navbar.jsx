@@ -38,6 +38,12 @@ const Navbar = () => {
               >
                 Products
               </Link>
+              <Link 
+                to="/dashboard" 
+                className="text-[#b8b8b8] hover:text-[#00f5ff] px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Dashboard
+              </Link>
               
               {user ? (
                 <div className="relative ml-3">
