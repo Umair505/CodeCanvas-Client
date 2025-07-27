@@ -112,10 +112,10 @@ const ErrorPage = () => {
               <span className="text-white">/requested-url</span>
             </div>
             <div className="text-red-400">
-              > ERROR: 404 - PAGE_NOT_FOUND [STATUS: TERMINATED]
+               ERROR: 404 - PAGE_NOT_FOUND [STATUS: TERMINATED]
             </div>
             <div className="text-[#9d00ff] mt-2">
-              > SUGGESTED_ACTIONS: [GO_BACK] OR [RETURN_HOME]
+               SUGGESTED_ACTIONS: [GO_BACK] OR [RETURN_HOME]
             </div>
           </div>
         </motion.div>

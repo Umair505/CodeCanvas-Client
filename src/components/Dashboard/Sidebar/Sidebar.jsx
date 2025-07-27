@@ -1,104 +1,153 @@
-import { useState } from 'react'
-import { GrLogout } from 'react-icons/gr'
-import { FcSettings } from 'react-icons/fc'
-import { AiOutlineBars } from 'react-icons/ai'
-import MenuItem from './Menu/MenuItem'
+import { useState } from 'react';
+import { Link, NavLink } from 'react-router';
+import { 
+  FiLogOut, 
+  FiUser, 
+  FiHome, 
+  FiPlusSquare, 
+  FiShoppingBag, 
+  FiCheckSquare, 
+  FiFlag, 
+  FiBarChart2, 
+  FiUsers, 
+  FiTag 
+} from 'react-icons/fi';
+import useAuth from '../../../hooks/useAuth';
+import logo from '../../../assets/images/logo-flat.png';
+import avatarImg from '../../../assets/images/placeholder.jpg';
 
-import useAuth from '../../../hooks/useAuth'
+const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
+  const { user, logOut } = useAuth();
 
-import AdminMenu from './Menu/AdminMenu'
-import { Link } from 'react-router'
-import SellerMenu from './Menu/SellerMenu'
-import CustomerMenu from './Menu/CustomerMenu'
-import logo from '../../../assets/images/logo-flat.png'
-const Sidebar = () => {
-  const { logOut } = useAuth()
-  const [isActive, setActive] = useState(false)
+  const customerMenu = [
+    { name: 'Home', icon: <FiHome />, path: '/dashboard' },
+    { name: 'My Profile', icon: <FiUser />, path: '/dashboard/profile' },
+    { name: 'Add Product', icon: <FiPlusSquare />, path: '/dashboard/add-product' },
+    { name: 'My Products', icon: <FiShoppingBag />, path: '/dashboard/products' },
+  ];
 
-  // Sidebar Responsive Handler
-  const handleToggle = () => {
-    setActive(!isActive)
-  }
+  const moderatorMenu = [
+    { name: 'Product Review Queue', icon: <FiCheckSquare />, path: '/dashboard/reviews' },
+    { name: 'Reported Contents', icon: <FiFlag />, path: '/dashboard/reported' },
+  ];
+
+  const adminMenu = [
+    { name: 'Statistics', icon: <FiBarChart2 />, path: '/dashboard/statistics' },
+    { name: 'Manage Users', icon: <FiUsers />, path: '/dashboard/users' },
+    { name: 'Manage Coupons', icon: <FiTag />, path: '/dashboard/coupons' },
+  ];
+
   return (
-    <>
-      {/* Small Screen Navbar */}
-      <div className='bg-gray-100 text-gray-800 flex justify-between md:hidden'>
-        <div>
-          <div className='block cursor-pointer p-4 font-bold'>
-            <Link to='/'>
-              <img
-                // className='hidden md:block'
-                src='https://i.ibb.co/4ZXzmq5/logo.png'
-                alt='logo'
-                width='100'
-                height='100'
-              />
-            </Link>
-          </div>
+    <div 
+      className={`fixed inset-y-0 left-0 w-64 bg-[#1a1a2e] border-r border-[#9d00ff]/30 z-30 transform ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      } md:translate-x-0 transition-transform duration-300 ease-in-out`}
+    >
+      <div className="flex flex-col h-full">
+        {/* Logo */}
+        <div className="flex items-center justify-center py-6 px-4 border-b border-[#9d00ff]/30">
+          <Link to="/" onClick={() => setSidebarOpen(false)}>
+            <img src={logo} alt="CodeCanvas" className="h-12" />
+          </Link>
         </div>
 
-        <button
-          onClick={handleToggle}
-          className='mobile-menu-button p-4 focus:outline-none focus:bg-gray-200'
-        >
-          <AiOutlineBars className='h-5 w-5' />
-        </button>
-      </div>
-
-      {/* Sidebar */}
-      <div
-        className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${
-          isActive && '-translate-x-full'
-        }  md:translate-x-0  transition duration-200 ease-in-out`}
-      >
-        <div>
-          <div>
-            <div className='w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-lime-100 mx-auto'>
-              <Link to='/'>
-                <img
-                  // className='hidden md:block'
-                  src={logo}
-                  alt='logo'
-                  width='100'
-                  height='100'
-                />
-              </Link>
-            </div>
-          </div>
-
-          {/* Nav Items */}
-          <div className='flex flex-col justify-between flex-1 mt-6'>
-            <nav>
-              {/*  Menu Items */}
-              <CustomerMenu />
-              <SellerMenu />
-
-              
-              <AdminMenu />
-            </nav>
-          </div>
-        </div>
-
-        <div>
-          <hr />
-
-          <MenuItem
-            icon={FcSettings}
-            label='Profile'
-            address='/dashboard/profile'
+        {/* User Profile */}
+        <div className="flex items-center px-4 py-4 border-b border-[#9d00ff]/30">
+          <img
+            className="h-10 w-10 rounded-full border-2 border-[#00f5ff]"
+            src={user?.photoURL || avatarImg}
+            alt="Profile"
           />
+          <div className="ml-3">
+            <p className="text-sm font-medium text-[#00f5ff]">{user?.displayName || 'User'}</p>
+            <p className="text-xs text-[#b8b8b8]">{user?.email || ''}</p>
+          </div>
+        </div>
+
+        {/* Menu Items */}
+        <nav className="flex-1 overflow-y-auto py-4">
+          <div className="px-2">
+            <h3 className="px-4 text-xs font-semibold text-[#00f5ff] uppercase tracking-wider mb-2">
+              Customer Menu
+            </h3>
+            <ul className="space-y-1 mb-6">
+              {customerMenu.map((item) => (
+                <li key={item.name}>
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) => `flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
+                      isActive
+                        ? 'bg-[#9d00ff]/20 text-[#00f5ff]'
+                        : 'text-[#b8b8b8] hover:bg-[#9d00ff]/10 hover:text-[#00f5ff]'
+                    }`}
+                    onClick={() => setSidebarOpen(false)}
+                  >
+                    <span className="mr-3 text-lg">{item.icon}</span>
+                    {item.name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+
+            <h3 className="px-4 text-xs font-semibold text-[#00f5ff] uppercase tracking-wider mb-2">
+              Moderator Menu
+            </h3>
+            <ul className="space-y-1 mb-6">
+              {moderatorMenu.map((item) => (
+                <li key={item.name}>
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) => `flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
+                      isActive
+                        ? 'bg-[#9d00ff]/20 text-[#00f5ff]'
+                        : 'text-[#b8b8b8] hover:bg-[#9d00ff]/10 hover:text-[#00f5ff]'
+                    }`}
+                    onClick={() => setSidebarOpen(false)}
+                  >
+                    <span className="mr-3 text-lg">{item.icon}</span>
+                    {item.name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+
+            <h3 className="px-4 text-xs font-semibold text-[#00f5ff] uppercase tracking-wider mb-2">
+              Admin Menu
+            </h3>
+            <ul className="space-y-1">
+              {adminMenu.map((item) => (
+                <li key={item.name}>
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) => `flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
+                      isActive
+                        ? 'bg-[#9d00ff]/20 text-[#00f5ff]'
+                        : 'text-[#b8b8b8] hover:bg-[#9d00ff]/10 hover:text-[#00f5ff]'
+                    }`}
+                    onClick={() => setSidebarOpen(false)}
+                  >
+                    <span className="mr-3 text-lg">{item.icon}</span>
+                    {item.name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+
+        {/* Logout */}
+        <div className="px-4 py-4 border-t border-[#9d00ff]/30">
           <button
             onClick={logOut}
-            className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'
+            className="flex w-full items-center px-4 py-2 text-sm font-medium text-[#b8b8b8] hover:text-[#ff3864] hover:bg-[#9d00ff]/10 rounded-md transition-colors"
           >
-            <GrLogout className='w-5 h-5' />
-
-            <span className='mx-4 font-medium'>Logout</span>
+            <FiLogOut className="mr-3 text-lg" />
+            Sign Out
           </button>
         </div>
       </div>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default Sidebar
+export default Sidebar;

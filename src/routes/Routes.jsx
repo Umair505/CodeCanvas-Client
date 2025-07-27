@@ -31,10 +31,11 @@ export const router = createBrowserRouter([
          loader:({params}) => fetch(`${import.meta.env.VITE_API_URL}/plant/${params.id}`),
         element: <PlantDetails />,
       },
+      { path: '/login', element: <Login /> },
+      { path: '/signup', element: <SignUp /> },
     ],
   },
-  { path: '/login', element: <Login /> },
-  { path: '/signup', element: <SignUp /> },
+  
   {
     path: '/dashboard',
     element: (
