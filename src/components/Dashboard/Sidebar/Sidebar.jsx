@@ -32,7 +32,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
   const adminMenu = [
     { name: 'Statistics', icon: <FiBarChart2 />, path: '/dashboard/statistics' },
-    { name: 'Manage Users', icon: <FiUsers />, path: '/dashboard/users' },
+    { name: 'Manage Users', icon: <FiUsers />, path: '/dashboard/manage-users' },
     { name: 'Manage Coupons', icon: <FiTag />, path: '/dashboard/coupons' },
   ];
 
