@@ -69,7 +69,7 @@ const [productToEdit, setProductToEdit] = useState(null);
           transition={{ duration: 0.5 }}
           className="mb-6 sm:mb-8"
         >
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00f5ff] to-[#9d00ff] mb-1 sm:mb-2">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00f5ff] to-[#9d00ff] mb-1 pb-2 sm:mb-2">
             My Products
           </h1>
           <p className="text-[#b8b8b8] text-xs sm:text-sm md:text-base">

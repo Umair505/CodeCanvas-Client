@@ -1,50 +1,54 @@
-import { createBrowserRouter } from 'react-router'
-import Home from '../pages/Home/Home'
-import ErrorPage from '../pages/ErrorPage'
-import Login from '../pages/Login/Login'
-import SignUp from '../pages/SignUp/SignUp'
-import PlantDetails from '../pages/PlantDetails/PlantDetails'
-import PrivateRoute from './PrivateRoute'
-import DashboardLayout from '../layouts/DashboardLayout'
-import AddProduct from '../pages/Dashboard/Seller/AddProduct'
-import ManageUsers from '../pages/Dashboard/Admin/ManageUsers'
-import Profile from '../pages/Dashboard/Common/Profile'
-import Statistics from '../pages/Dashboard/Common/Statistics'
-import MainLayout from '../layouts/MainLayout'
-import MyInventory from '../pages/Dashboard/Seller/MyInventory'
-import ManageOrders from '../pages/Dashboard/Seller/ManageOrders'
-import MyOrders from '../pages/Dashboard/Customer/MyProducts'
-import Products from '../components/Home/Products'
-import MyProducts from '../pages/Dashboard/Customer/MyProducts'
-import EditProduct from '../components/Modal/EditProduct'
-import { axiosSecure } from '../hooks/useAxiosSecure'
+import { createBrowserRouter } from "react-router";
+import Home from "../pages/Home/Home";
+import ErrorPage from "../pages/ErrorPage";
+import Login from "../pages/Login/Login";
+import SignUp from "../pages/SignUp/SignUp";
+import PrivateRoute from "./PrivateRoute";
+import DashboardLayout from "../layouts/DashboardLayout";
+import AddProduct from "../pages/Dashboard/Seller/AddProduct";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import Profile from "../pages/Dashboard/Common/Profile";
+import Statistics from "../pages/Dashboard/Common/Statistics";
+import MainLayout from "../layouts/MainLayout";
+import MyInventory from "../pages/Dashboard/Seller/MyInventory";
+import ManageOrders from "../pages/Dashboard/Seller/ManageOrders";
+import MyOrders from "../pages/Dashboard/Customer/MyProducts";
+import Products from "../components/Home/Products";
+import MyProducts from "../pages/Dashboard/Customer/MyProducts";
+import EditProduct from "../components/Modal/EditProduct";
+import { axiosSecure } from "../hooks/useAxiosSecure";
+import ProductDetails from "../pages/ProductDetails/ProductDetails";
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <MainLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Home />,
       },
       {
-        path: '/products',
+        path: "/products",
         element: <Products />,
       },
-      {
-        path: '/plant/:id',
-         loader:({params}) => fetch(`${import.meta.env.VITE_API_URL}/plant/${params.id}`),
-        element: <PlantDetails />,
+        {
+        path: "product/:id",
+        element: <PrivateRoute><ProductDetails /></PrivateRoute>,
+        loader: async ({ params }) => {
+          const { id } = params;
+          const response = await axiosSecure.get(`/products/${id}`);
+          return response.data;
+        },
       },
-      { path: '/login', element: <Login /> },
-      { path: '/signup', element: <SignUp /> },
+      { path: "/login", element: <Login /> },
+      { path: "/signup", element: <SignUp /> },
     ],
   },
-  
+
   {
-    path: '/dashboard',
+    path: "/dashboard",
     element: (
       <PrivateRoute>
         <DashboardLayout />
@@ -60,7 +64,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'add-product',
+        path: "add-product",
         element: (
           <PrivateRoute>
             <AddProduct />
@@ -68,7 +72,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'products',
+        path: "products",
         element: (
           <PrivateRoute>
             <Products />
@@ -76,28 +80,29 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'my-products',
+        path: "my-products",
         element: (
           <PrivateRoute>
             <MyProducts />
           </PrivateRoute>
         ),
       },
-       {
-      path: 'edit-product/:id',
-      element: (
-        <PrivateRoute>
-          <EditProduct />
-        </PrivateRoute>
-      ),
-      loader: async ({ params }) => {
-        const { id } = params;
-        const response = await axiosSecure.get(`/products/${id}`);
-        return response.data;
-      }
-    },
       {
-        path: 'my-inventory',
+        path: "edit-product/:id",
+        element: (
+          <PrivateRoute>
+            <EditProduct />
+          </PrivateRoute>
+        ),
+        loader: async ({ params }) => {
+          const { id } = params;
+          const response = await axiosSecure.get(`/products/${id}`);
+          return response.data;
+        },
+      },
+    
+      {
+        path: "my-inventory",
         element: (
           <PrivateRoute>
             <MyInventory />
@@ -105,7 +110,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'manage-users',
+        path: "manage-users",
         element: (
           <PrivateRoute>
             <ManageUsers />
@@ -113,7 +118,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'profile',
+        path: "profile",
         element: (
           <PrivateRoute>
             <Profile />
@@ -121,7 +126,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'my-orders',
+        path: "my-orders",
         element: (
           <PrivateRoute>
             <MyOrders />
@@ -129,9 +134,9 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'manage-orders',
+        path: "manage-orders",
         element: <ManageOrders />,
       },
     ],
   },
-])
+]);

@@ -81,7 +81,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         <nav className="flex-1 overflow-y-auto py-4">
           <div className="px-2">
             <h3 className="px-4 text-xs font-semibold text-[#00f5ff] uppercase tracking-wider mb-2">
-              Customer Menu
+              User Menu
             </h3>
             <ul className="space-y-1 mb-6">
               {customerMenu.map((item) => (
