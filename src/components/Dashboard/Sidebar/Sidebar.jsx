@@ -26,8 +26,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   ];
 
   const moderatorMenu = [
-    { name: 'Product Review Queue', icon: <FiCheckSquare />, path: '/dashboard/reviews' },
-    { name: 'Reported Contents', icon: <FiFlag />, path: '/dashboard/reported' },
+    { name: 'Product Review Queue', icon: <FiCheckSquare />, path: '/dashboard/review-queue' },
+    { name: 'Reported Contents', icon: <FiFlag />, path: '/dashboard/reported-contents' },
   ];
 
   const adminMenu = [

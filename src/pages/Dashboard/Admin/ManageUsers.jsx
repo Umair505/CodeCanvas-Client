@@ -6,7 +6,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import LoadingSpinner from '../../../components/Shared/LoadingSpinner';
 import Button from '../../../components/Shared/Button/Button';
 import toast from 'react-hot-toast';
-
+import userDummyLogo from '../../../assets/images/placeholder.jpg'; 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
@@ -168,13 +168,13 @@ const ManageUsers = () => {
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <img
-                      src={user.image || 'https://via.placeholder.com/40'}
-                      alt={user.name}
+                      src={user?.image || userDummyLogo }
+                      alt={user?.name}
                       className="w-10 h-10 rounded-full border-2 border-[#9d00ff]"
                     />
                     <div>
-                      <div className="text-white font-medium">{user.name}</div>
-                      <div className="text-sm text-[#b8b8b8]">{user.email}</div>
+                      <div className="text-white font-medium">{user?.name}</div>
+                      <div className="text-sm text-[#b8b8b8]">{user?.email}</div>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">

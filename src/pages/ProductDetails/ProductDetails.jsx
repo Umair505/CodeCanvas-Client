@@ -54,7 +54,7 @@ const ProductDetails = () => {
 
   // Report mutation
   const reportMutation = useMutation({
-    mutationFn: (reason) => axiosSecure.post(`/products/${id}/report`, { reason, reporterId: user?.uid }),
+    mutationFn: (reason) => axiosSecure.post(`/products/${id}/report`, { reason, reporterName: user?.displayName }),
     onSuccess: () => {
       toast.success('Product reported successfully');
       setShowReportModal(false);

@@ -18,6 +18,8 @@ import MyProducts from "../pages/Dashboard/Customer/MyProducts";
 import EditProduct from "../components/Modal/EditProduct";
 import { axiosSecure } from "../hooks/useAxiosSecure";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
+import ProductReviewQueue from "../pages/Dashboard/Seller/ProductReviewQueue";
+import ReportedContents from "../pages/Dashboard/Seller/ReportedContents";
 
 export const router = createBrowserRouter([
   {
@@ -100,15 +102,6 @@ export const router = createBrowserRouter([
           return response.data;
         },
       },
-    
-      {
-        path: "my-inventory",
-        element: (
-          <PrivateRoute>
-            <MyInventory />
-          </PrivateRoute>
-        ),
-      },
       {
         path: "manage-users",
         element: (
@@ -127,17 +120,21 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-orders",
-        element: (
-          <PrivateRoute>
-            <MyOrders />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "manage-orders",
-        element: <ManageOrders />,
-      },
+      path: 'review-queue',
+      element: (
+        <PrivateRoute allowedRoles={['moderator', 'admin']}>
+          <ProductReviewQueue />
+        </PrivateRoute>
+      )
+    },
+    {
+      path: 'reported-contents',
+      element: (
+        <PrivateRoute allowedRoles={['moderator', 'admin']}>
+          <ReportedContents />
+        </PrivateRoute>
+      )
+    },
     ],
   },
 ]);

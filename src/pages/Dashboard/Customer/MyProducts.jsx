@@ -164,11 +164,7 @@ const [productToEdit, setProductToEdit] = useState(null);
                             : 'bg-gray-500/20 text-gray-400'
                         }`}
                       >
-                        {(product.votes || 0) >= 10
-                          ? 'Popular'
-                          : (product.votes || 0) >= 5
-                          ? 'Trending'
-                          : 'New'}
+                        {product.status}
                       </span>
                     </div>
 
@@ -176,18 +172,14 @@ const [productToEdit, setProductToEdit] = useState(null);
                     <div className="hidden md:flex md:col-span-1 justify-center">
                       <span
                         className={`px-2 py-1 rounded-full text-xs sm:text-sm ${
-                          (product.votes || 0) >= 10
+                          product.status === 'approved'
                             ? 'bg-green-500/20 text-green-400'
-                            : (product.votes || 0) >= 5
-                            ? 'bg-yellow-500/20 text-yellow-400'
+                            : product.status === 'pending'
+                            ? 'bg-red-500/20 text-red-400'
                             : 'bg-gray-500/20 text-gray-400'
                         }`}
                       >
-                        {(product.votes || 0) >= 10
-                          ? 'Popular'
-                          : (product.votes || 0) >= 5
-                          ? 'Trending'
-                          : 'New'}
+                        {product.status}
                       </span>
                     </div>
 

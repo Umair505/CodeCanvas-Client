@@ -18,6 +18,7 @@ const AddProduct = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [isUploading, setIsUploading] = useState(false);
+  const [isImageUploading, setIsImageUploading] = useState(false);
   const [uploadedImage, setUploadedImage] = useState(null);
   const [imageError, setImageError] = useState(false);
   const [tags, setTags] = useState([]);
@@ -25,6 +26,21 @@ const AddProduct = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if (!uploadedImage) {
+      toast.error('Please upload an image first', {
+        style: {
+          background: '#1a1a2e',
+          color: '#ff3864',
+          border: '1px solid #ff3864',
+        },
+        iconTheme: {
+          primary: '#ff3864',
+          secondary: '#FFF',
+        }
+      });
+      return;
+    }
+
     setIsUploading(true);
     
     const form = e.target;
@@ -43,28 +59,42 @@ const AddProduct = () => {
           email: user?.email,
           image: user?.photoURL
         },
+        status: 'pending', // Set initial status to pending
         createdAt: new Date(),
       };
 
       await axios.post(`${import.meta.env.VITE_API_URL}/add-product`, productData);
+      
       toast.success('Product added successfully!', {
         style: {
-          background: '#4BB543',
-          color: '#fff',
+          background: '#1a1a2e',
+          color: '#00f5ff',
+          border: '1px solid #00f5ff',
         },
+        iconTheme: {
+          primary: '#00f5ff',
+          secondary: '#1a1a2e',
+        },
+        duration: 3000
       });
+      
       form.reset();
       setTags([]);
       setExternalLink('');
       setUploadedImage(null);
-      // navigate('/dashboard/products');
+      navigate('/dashboard/my-products');
     } catch (error) {
       console.error('Error adding product:', error);
       toast.error('Failed to add product', {
         style: {
-          background: '#FF3333',
-          color: '#fff',
+          background: '#1a1a2e',
+          color: '#ff3864',
+          border: '1px solid #ff3864',
         },
+        iconTheme: {
+          primary: '#ff3864',
+          secondary: '#FFF',
+        }
       });
     } finally {
       setIsUploading(false);
@@ -76,12 +106,53 @@ const AddProduct = () => {
     if (!image) return;
     
     try {
+      setIsImageUploading(true);
+      setImageError(false);
+      
+      toast.loading('Uploading image...', {
+        style: {
+          background: '#1a1a2e',
+          color: '#9d00ff',
+          border: '1px solid #9d00ff',
+        },
+        iconTheme: {
+          primary: '#9d00ff',
+          secondary: '#FFF',
+        },
+        duration: 2000
+      });
+
       const imageUrl = await uploadImage(image);
       setUploadedImage(imageUrl);
-      setImageError(false);
+      
+      toast.success('Image uploaded successfully!', {
+        style: {
+          background: '#1a1a2e',
+          color: '#00f5ff',
+          border: '1px solid #00f5ff',
+        },
+        iconTheme: {
+          primary: '#00f5ff',
+          secondary: '#1a1a2e',
+        },
+        duration: 2000
+      });
     } catch (error) {
       console.error('Error uploading image:', error);
       setImageError(true);
+      toast.error('Failed to upload image', {
+        style: {
+          background: '#1a1a2e',
+          color: '#ff3864',
+          border: '1px solid #ff3864',
+        },
+        iconTheme: {
+          primary: '#ff3864',
+          secondary: '#FFF',
+        }
+      });
+    } finally {
+      setIsImageUploading(false);
     }
   };
 
@@ -129,28 +200,58 @@ const AddProduct = () => {
               Product Image <span className="text-[#ff3864]">*</span>
             </label>
             <div className="flex items-center space-x-4">
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-[#9d00ff]/50 rounded-lg cursor-pointer bg-[#0a0a12] hover:border-[#00f5ff] transition-colors">
+              <label className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer transition-colors ${
+                isImageUploading 
+                  ? 'border-[#00f5ff] bg-[#00f5ff]/10' 
+                  : imageError 
+                    ? 'border-[#ff3864] bg-[#ff3864]/10' 
+                    : 'border-[#9d00ff]/50 bg-[#0a0a12] hover:border-[#00f5ff]'
+              }`}>
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <FiUpload className="w-8 h-8 mb-2 text-[#9d00ff]" />
-                  <p className="text-sm text-[#b8b8b8]">
-                    {uploadedImage ? 'Change Image' : 'Click to upload'}
-                  </p>
+                  {isImageUploading ? (
+                    <div className="flex flex-col items-center">
+                      <svg className="animate-spin h-8 w-8 mb-2 text-[#00f5ff]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <p className="text-sm text-[#00f5ff]">Uploading...</p>
+                    </div>
+                  ) : (
+                    <>
+                      <FiUpload className={`w-8 h-8 mb-2 ${
+                        imageError ? 'text-[#ff3864]' : 'text-[#9d00ff]'
+                      }`} />
+                      <p className={`text-sm ${
+                        imageError ? 'text-[#ff3864]' : 'text-[#b8b8b8]'
+                      }`}>
+                        {uploadedImage ? 'Change Image' : 'Click to upload'}
+                      </p>
+                    </>
+                  )}
                 </div>
                 <input 
                   type="file" 
                   className="hidden" 
                   onChange={handleImageUpload} 
                   accept="image/*"
-                  required={!uploadedImage}
+                  disabled={isImageUploading}
                 />
               </label>
               {uploadedImage && (
-                <div className="w-32 h-32 rounded-lg overflow-hidden border border-[#9d00ff]/30">
+                <div className="w-32 h-32 rounded-lg overflow-hidden border border-[#9d00ff]/30 relative">
                   <img 
                     src={uploadedImage} 
                     alt="Product Preview" 
                     className="w-full h-full object-cover"
                   />
+                  {isImageUploading && (
+                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                      <svg className="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
