@@ -13,7 +13,7 @@ import {
   FiTag 
 } from 'react-icons/fi';
 import useAuth from '../../../hooks/useAuth';
-import logo from '../../../assets/images/logo-flat.png';
+import logo from '../../../assets/images/logo-flat1.png';
 import avatarImg from '../../../assets/images/placeholder.jpg';
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
@@ -46,7 +46,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         {/* Logo */}
         <div className="flex items-center justify-center py-6 px-4 border-b border-[#9d00ff]/30">
           <Link to="/" onClick={() => setSidebarOpen(false)}>
-            <img src={logo} alt="CodeCanvas" className="h-12" />
+            <img src={logo} alt="CodeCanvas" className="h-25" />
           </Link>
         </div>
 

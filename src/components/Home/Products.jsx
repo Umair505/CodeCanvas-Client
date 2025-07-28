@@ -75,24 +75,7 @@ const Products = () => {
                   <Card key={product._id} product={product} />
                 ))}
               </motion.div>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.8 }}
-                className="mt-12 text-center"
-              >
-                <p className="text-[#b8b8b8] mb-4">
-                  Want to see more amazing products?
-                </p>
-                <a href="/products" className="inline-block w-auto">
-                  <Button
-                    label="Browse All Products"
-                    fullWidth={false}
-                    outline={false}
-                  />
-                </a>
-
-              </motion.div>
+              
             </>
           ) : (
             <EmptyState 
