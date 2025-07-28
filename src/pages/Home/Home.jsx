@@ -1,10 +1,11 @@
-import Products from '../../components/Home/Products'
+import FeaturedProducts from '../../components/Home/FeaturedProducts'
 
 const Home = () => {
   
   return (
     <div>
-      <Products />
+      <FeaturedProducts />
+      
     </div>
   )
 }

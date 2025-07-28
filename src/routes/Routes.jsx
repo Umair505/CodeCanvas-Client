@@ -13,8 +13,11 @@ import Statistics from '../pages/Dashboard/Common/Statistics'
 import MainLayout from '../layouts/MainLayout'
 import MyInventory from '../pages/Dashboard/Seller/MyInventory'
 import ManageOrders from '../pages/Dashboard/Seller/ManageOrders'
-import MyOrders from '../pages/Dashboard/Customer/MyOrders'
+import MyOrders from '../pages/Dashboard/Customer/MyProducts'
 import Products from '../components/Home/Products'
+import MyProducts from '../pages/Dashboard/Customer/MyProducts'
+import EditProduct from '../components/Modal/EditProduct'
+import { axiosSecure } from '../hooks/useAxiosSecure'
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/products',
+        element: <Products />,
       },
       {
         path: '/plant/:id',
@@ -68,6 +75,27 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: 'my-products',
+        element: (
+          <PrivateRoute>
+            <MyProducts />
+          </PrivateRoute>
+        ),
+      },
+       {
+      path: 'edit-product/:id',
+      element: (
+        <PrivateRoute>
+          <EditProduct />
+        </PrivateRoute>
+      ),
+      loader: async ({ params }) => {
+        const { id } = params;
+        const response = await axiosSecure.get(`/products/${id}`);
+        return response.data;
+      }
+    },
       {
         path: 'my-inventory',
         element: (

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import DeleteModal from '../../Modal/DeleteModal'
+import DeleteModal from '../../Modal/ConfirmationModal'
 import UpdatePlantModal from '../../Modal/UpdatePlantModal'
 
 const PlantDataRow = () => {

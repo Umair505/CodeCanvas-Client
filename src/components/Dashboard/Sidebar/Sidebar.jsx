@@ -22,7 +22,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const customerMenu = [
     { name: 'My Profile', icon: <FiUser />, path: '/dashboard/profile' },
     { name: 'Add Product', icon: <FiPlusSquare />, path: '/dashboard/add-product' },
-    { name: 'My Products', icon: <FiShoppingBag />, path: '/dashboard/products' },
+    { name: 'My Products', icon: <FiShoppingBag />, path: '/dashboard/my-products' },
   ];
 
   const moderatorMenu = [
