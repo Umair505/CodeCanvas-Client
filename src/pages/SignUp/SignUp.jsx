@@ -79,12 +79,18 @@ const SignUp = () => {
       }
       await saveUserInDb(userData)
       navigate('/')
-      toast.success('Google signup successful!', {
+     toast.success('Google signup successful!', {
         style: {
-          background: '#4BB543',
-          color: '#fff',
+          background: '#1a1a2e',
+          color: '#00f5ff',
+          border: '1px solid #00f5ff',
         },
-      })
+        iconTheme: {
+          primary: '#00f5ff',
+          secondary: '#1a1a2e',
+        },
+        duration: 3000
+      });
     } catch (err) {
       console.error(err)
       toast.error(err?.message || 'Google signup failed', {

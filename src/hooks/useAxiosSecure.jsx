@@ -50,9 +50,7 @@ const useAxiosSecure = () => {
             toast.error('Server error. Please try again later.');
             break;
             
-          default:
-            // Other errors
-            toast.error('An unexpected error occurred.');
+          
         }
         
         return Promise.reject(error);

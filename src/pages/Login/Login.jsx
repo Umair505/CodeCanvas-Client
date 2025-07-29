@@ -7,6 +7,7 @@ import LoadingSpinner from '../../components/Shared/LoadingSpinner'
 import { motion } from 'framer-motion'
 import loginImg from '../../assets/images/login.png'
 import { useEffect, useState } from 'react'
+import { saveUserInDb } from '../../api/utils'
 
 const Login = () => {
   const { signIn, signInWithGoogle, loading, user } = useAuth()
@@ -36,14 +37,18 @@ const Login = () => {
     try {
       await signIn(email, password)
       navigate(from, { replace: true })
-      toast.success('Welcome back!', {
-        icon: '👋',
+      toast.success(`Welcome Back ${user?.displayName}!`, {
         style: {
-          borderRadius: '10px',
-          background: '#4ade80',
-          color: '#fff',
+          background: '#1a1a2e',
+          color: '#00f5ff',
+          border: '1px solid #00f5ff',
         },
-      })
+        iconTheme: {
+          primary: '#00f5ff',
+          secondary: '#1a1a2e',
+        },
+        duration: 3000
+      });
     } catch (err) {
       toast.error(err?.message || 'Login failed', {
         icon: '⚠️',
@@ -58,16 +63,27 @@ const Login = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle()
+      const result = await signInWithGoogle()
+            const userData = {
+              name: result?.user?.displayName,
+              email: result?.user?.email,
+              image: result?.user?.photoURL,
+            }
+            await saveUserInDb(userData)
       navigate(from, { replace: true })
-      toast.success('Google login successful!', {
-        icon: '✅',
+      toast.success('Google login successfully!', {
         style: {
-          borderRadius: '10px',
-          background: '#4ade80',
-          color: '#fff',
+          background: '#1a1a2e',
+          color: '#00f5ff',
+          border: '1px solid #00f5ff',
         },
-      })
+        iconTheme: {
+          primary: '#00f5ff',
+          secondary: '#1a1a2e',
+        },
+        duration: 3000
+      });
+      
     } catch (err) {
       toast.error(err?.message || 'Google login failed', {
         icon: '❌',
