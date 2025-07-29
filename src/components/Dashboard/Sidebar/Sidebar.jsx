@@ -15,10 +15,14 @@ import {
 import useAuth from '../../../hooks/useAuth';
 import logo from '../../../assets/images/logo-flat1.png';
 import avatarImg from '../../../assets/images/placeholder.jpg';
+import useRole from '../../../hooks/userRole';
+import LoadingSpinner from '../../Shared/LoadingSpinner';
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const { user, logOut } = useAuth();
-
+  const [role,isRoleLoading] = useRole();
+  
+  
   const customerMenu = [
     { name: 'My Profile', icon: <FiUser />, path: '/dashboard/profile' },
     { name: 'Add Product', icon: <FiPlusSquare />, path: '/dashboard/add-product' },
@@ -35,6 +39,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     { name: 'Manage Users', icon: <FiUsers />, path: '/dashboard/manage-users' },
     { name: 'Manage Coupons', icon: <FiTag />, path: '/dashboard/coupons' },
   ];
+
+  if(isRoleLoading) return <LoadingSpinner />;
 
   return (
     <div 
@@ -80,71 +86,88 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         {/* Menu Items */}
         <nav className="flex-1 overflow-y-auto py-4">
           <div className="px-2">
-            <h3 className="px-4 text-xs font-semibold text-[#00f5ff] uppercase tracking-wider mb-2">
-              User Menu
-            </h3>
-            <ul className="space-y-1 mb-6">
-              {customerMenu.map((item) => (
-                <li key={item.name}>
-                  <NavLink
-                    to={item.path}
-                    className={({ isActive }) => `flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
-                      isActive
-                        ? 'bg-[#9d00ff]/20 text-[#00f5ff]'
-                        : 'text-[#b8b8b8] hover:bg-[#9d00ff]/10 hover:text-[#00f5ff]'
-                    }`}
-                    onClick={() => setSidebarOpen(false)}
-                  >
-                    <span className="mr-3 text-lg">{item.icon}</span>
-                    {item.name}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
+            {
+              role === 'user' && (
+                <>
+                  <h3 className="px-4 text-xs font-semibold text-[#00f5ff] uppercase tracking-wider mb-2">
+                    Customer Menu
+                  </h3>
+                  <ul className="space-y-1 mb-6">
+                    {customerMenu.map((item) => (
+                      <li key={item.name}>
+                        <NavLink
+                          to={item.path}
+                          className={({ isActive }) => `flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
+                            isActive
+                              ? 'bg-[#9d00ff]/20 text-[#00f5ff]'
+                              : 'text-[#b8b8b8] hover:bg-[#9d00ff]/10 hover:text-[#00f5ff]'
+                          }`}
+                          onClick={() => setSidebarOpen(false)}
+                        >
+                          <span className="mr-3 text-lg">{item.icon}</span>
+                          {item.name}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )
+            }
+            {
+              role === 'moderator' && (
+                <>
+                  <h3 className="px-4 text-xs font-semibold text-[#00f5ff] uppercase tracking-wider mb-2">
+                    Moderator Menu
+                  </h3>
+                  <ul className="space-y-1 mb-6">
+                    {moderatorMenu.map((item) => (
+                      <li key={item.name}>
+                        <NavLink
+                          to={item.path}
+                          className={({ isActive }) => `flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
+                            isActive
+                              ? 'bg-[#9d00ff]/20 text-[#00f5ff]'
+                              : 'text-[#b8b8b8] hover:bg-[#9d00ff]/10 hover:text-[#00f5ff]'
+                          }`}
+                          onClick={() => setSidebarOpen(false)}
+                        >
+                          <span className="mr-3 text-lg">{item.icon}</span>
+                          {item.name}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )
+            }
 
-            <h3 className="px-4 text-xs font-semibold text-[#00f5ff] uppercase tracking-wider mb-2">
-              Moderator Menu
-            </h3>
-            <ul className="space-y-1 mb-6">
-              {moderatorMenu.map((item) => (
-                <li key={item.name}>
-                  <NavLink
-                    to={item.path}
-                    className={({ isActive }) => `flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
-                      isActive
-                        ? 'bg-[#9d00ff]/20 text-[#00f5ff]'
-                        : 'text-[#b8b8b8] hover:bg-[#9d00ff]/10 hover:text-[#00f5ff]'
-                    }`}
-                    onClick={() => setSidebarOpen(false)}
-                  >
-                    <span className="mr-3 text-lg">{item.icon}</span>
-                    {item.name}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-
-            <h3 className="px-4 text-xs font-semibold text-[#00f5ff] uppercase tracking-wider mb-2">
-              Admin Menu
-            </h3>
-            <ul className="space-y-1">
-              {adminMenu.map((item) => (
-                <li key={item.name}>
-                  <NavLink
-                    to={item.path}
-                    className={({ isActive }) => `flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
-                      isActive
-                        ? 'bg-[#9d00ff]/20 text-[#00f5ff]'
-                        : 'text-[#b8b8b8] hover:bg-[#9d00ff]/10 hover:text-[#00f5ff]'
-                    }`}
-                    onClick={() => setSidebarOpen(false)}
-                  >
-                    <span className="mr-3 text-lg">{item.icon}</span>
-                    {item.name}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
+            {
+              role === 'admin' && (
+                <>
+                  <h3 className="px-4 text-xs font-semibold text-[#00f5ff] uppercase tracking-wider mb-2">
+                    Admin Menu
+                  </h3>
+                  <ul className="space-y-1 mb-6">
+                    {adminMenu.map((item) => (
+                      <li key={item.name}>
+                        <NavLink
+                          to={item.path}
+                          className={({ isActive }) => `flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
+                            isActive
+                              ? 'bg-[#9d00ff]/20 text-[#00f5ff]'
+                              : 'text-[#b8b8b8] hover:bg-[#9d00ff]/10 hover:text-[#00f5ff]'
+                          }`}
+                          onClick={() => setSidebarOpen(false)}
+                        >
+                          <span className="mr-3 text-lg">{item.icon}</span>
+                          {item.name}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )
+            }
           </div>
         </nav>
 
