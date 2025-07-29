@@ -44,7 +44,18 @@ const EditProduct = ({ product, onClose, onUpdate }) => {
       axiosSecure.put(`/products/${product._id}`, updatedProduct),
     onSuccess: () => {
       queryClient.invalidateQueries(['myProducts']);
-      toast.success('Product updated successfully');
+      toast.success('Product updated successfully!', {
+        style: {
+          background: '#1a1a2e',
+          color: '#00f5ff',
+          border: '1px solid #00f5ff',
+        },
+        iconTheme: {
+          primary: '#00f5ff',
+          secondary: '#1a1a2e',
+        },
+        duration: 3000
+      });
       onClose();
     },
     onError: (error) => {

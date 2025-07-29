@@ -38,7 +38,6 @@ const Card = ({ product }) => {
       );
       setVotes(votes + 1);
       setHasVoted(true);
-      toast.success('Vote submitted!');
     } catch (error) {
       console.error('Error upvoting:', error);
       toast.error(error.response?.data?.error || 'Failed to upvote');

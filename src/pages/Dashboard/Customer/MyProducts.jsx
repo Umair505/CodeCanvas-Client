@@ -36,7 +36,18 @@ const [productToEdit, setProductToEdit] = useState(null);
     mutationFn: (productId) => axiosSecure.delete(`/products/${productId}`),
     onSuccess: () => {
       queryClient.invalidateQueries(['myProducts', user?.email]);
-      toast.success('Product deleted successfully');
+      toast.success('Product deleted successfully!', {
+        style: {
+          background: '#1a1a2e',
+          color: '#00f5ff',
+          border: '1px solid #00f5ff',
+        },
+        iconTheme: {
+          primary: '#00f5ff',
+          secondary: '#1a1a2e',
+        },
+        duration: 3000
+      });
     },
     onError: (error) => {
       toast.error('Failed to delete product');

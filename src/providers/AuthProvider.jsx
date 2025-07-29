@@ -12,6 +12,7 @@ import {
 } from 'firebase/auth'
 import { app } from '../firebase/firebase.config'
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null)
@@ -38,6 +39,17 @@ const AuthProvider = ({ children }) => {
   }
 
   const logOut = async () => {
+      toast.success('Logout Succesfully!', {
+        style: {
+          background: '#1a1a2e',
+          color: '#9d00ff',
+          border: '1px solid #9d00ff',
+        },
+        iconTheme: {
+          primary: '#9d00ff',
+          secondary: '#1a1a2e',
+        },
+      });
     setLoading(true)
     return signOut(auth)
   }

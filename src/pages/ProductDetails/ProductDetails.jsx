@@ -45,7 +45,17 @@ const ProductDetails = () => {
     mutationFn: () => axiosSecure.patch(`/products/${id}/upvote`, { userId: user?.uid }),
     onSuccess: () => {
       queryClient.invalidateQueries(['product', id]);
-      toast.success('Upvoted successfully!');
+       toast.success('Upvoted successfully', {
+        style: {
+          background: '#1a1a2e',
+          color: '#9d00ff',
+          border: '1px solid #9d00ff',
+        },
+        iconTheme: {
+          primary: '#9d00ff',
+          secondary: '#1a1a2e',
+        },
+      });
     },
     onError: (error) => {
       toast.error(error.response?.data?.message || 'Failed to upvote');
@@ -56,7 +66,17 @@ const ProductDetails = () => {
   const reportMutation = useMutation({
     mutationFn: (reason) => axiosSecure.post(`/products/${id}/report`, { reason, reporterName: user?.displayName }),
     onSuccess: () => {
-      toast.success('Product reported successfully');
+       toast.success('Product Reported successfully', {
+        style: {
+          background: '#1a1a2e',
+          color: '#9d00ff',
+          border: '1px solid #9d00ff',
+        },
+        iconTheme: {
+          primary: '#9d00ff',
+          secondary: '#1a1a2e',
+        },
+      });
       setShowReportModal(false);
       setReportReason('');
     },
@@ -72,7 +92,17 @@ const ProductDetails = () => {
       queryClient.invalidateQueries(['reviews', id]);
       setReviewText('');
       setRating(0);
-      toast.success('Review submitted!');
+       toast.success('Review Submitted', {
+        style: {
+          background: '#1a1a2e',
+          color: '#9d00ff',
+          border: '1px solid #9d00ff',
+        },
+        iconTheme: {
+          primary: '#9d00ff',
+          secondary: '#1a1a2e',
+        },
+      });
     },
     onError: () => {
       toast.error('Failed to submit review');
@@ -85,11 +115,31 @@ const ProductDetails = () => {
       return;
     }
     if (product.owner.email === user.email) {
-      toast.error("You can't vote for your own product");
+       toast.error('You cannot vote for your own product', {
+        style: {
+          background: '#1a1a2e',
+          color: '#9d00ff',
+          border: '1px solid #9d00ff',
+        },
+        iconTheme: {
+          primary: '#9d00ff',
+          secondary: '#1a1a2e',
+        },
+      });
       return;
     }
     if (product.votedBy?.includes(user.uid)) {
-      toast.error('You have already voted for this product');
+        toast.error('You have already voted for this product', {
+        style: {
+          background: '#1a1a2e',
+          color: '#9d00ff',
+          border: '1px solid #9d00ff',
+        },
+        iconTheme: {
+          primary: '#9d00ff',
+          secondary: '#1a1a2e',
+        },
+      });
       return;
     }
     upvoteMutation.mutate();
@@ -110,6 +160,7 @@ const ProductDetails = () => {
       return;
     }
     if (!reviewText || rating === 0) {
+      
       toast.error('Please provide both rating and review text');
       return;
     }

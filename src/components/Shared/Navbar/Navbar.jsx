@@ -10,7 +10,7 @@ import avatarImg from '../../../assets/images/placeholder.jpg';
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-
+  
   return (
     <nav className="fixed w-full bg-[#0a0a12] z-50 border-b border-[#9d00ff]/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -28,7 +28,18 @@ const ProductReviewQueue = () => {
       axiosSecure.patch(`/products/${productId}/status`, { status: 'approved' }),
     onSuccess: () => {
       queryClient.invalidateQueries(['pendingProducts']);
-      toast.success('Product approved successfully');
+      toast.success('Product approved successfully!', {
+        style: {
+          background: '#1a1a2e',
+          color: '#00f5ff',
+          border: '1px solid #00f5ff',
+        },
+        iconTheme: {
+          primary: '#00f5ff',
+          secondary: '#1a1a2e',
+        },
+        duration: 3000
+      });
     },
     onError: () => {
       toast.error('Failed to approve product');
@@ -41,7 +52,18 @@ const ProductReviewQueue = () => {
       axiosSecure.patch(`/products/${productId}/status`, { status: 'rejected' }),
     onSuccess: () => {
       queryClient.invalidateQueries(['pendingProducts']);
-      toast.success('Product rejected');
+      toast.success('Product Rejected!', {
+        style: {
+          background: '#1a1a2e',
+          color: '#00f5ff',
+          border: '1px solid #00f5ff',
+        },
+        iconTheme: {
+          primary: '#00f5ff',
+          secondary: '#1a1a2e',
+        },
+        duration: 3000
+      });
     },
     onError: () => {
       toast.error('Failed to reject product');
@@ -54,7 +76,18 @@ const ProductReviewQueue = () => {
       axiosSecure.patch(`/products/${productId}/feature`, { isFeatured: true }),
     onSuccess: () => {
       queryClient.invalidateQueries(['pendingProducts']);
-      toast.success('Product marked as featured');
+      toast.success('Product marked as featured!', {
+        style: {
+          background: '#1a1a2e',
+          color: '#00f5ff',
+          border: '1px solid #00f5ff',
+        },
+        iconTheme: {
+          primary: '#00f5ff',
+          secondary: '#1a1a2e',
+        },
+        duration: 3000
+      });
     },
     onError: () => {
       toast.error('Failed to feature product');

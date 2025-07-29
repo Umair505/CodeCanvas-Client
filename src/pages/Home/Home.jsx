@@ -1,6 +1,7 @@
 import Banner from '../../components/Home/Banner'
 import Carousel from '../../components/Home/Carousel'
 import FeaturedProducts from '../../components/Home/FeaturedProducts'
+import TrendingProducts from '../../components/Home/TrendingProducts'
 
 const Home = () => {
   
@@ -9,6 +10,7 @@ const Home = () => {
       <Banner/>
       <FeaturedProducts />
       <Carousel/>
+      <TrendingProducts/>
       
     </div>
   )
