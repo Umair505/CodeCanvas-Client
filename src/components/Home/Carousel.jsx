@@ -55,6 +55,7 @@ const Carousel = () => {
     return (
         <div className="relative w-full  mx-auto overflow-hidden rounded-xl shadow-2xl">
             {/* Main Carousel */}
+
             <div className="relative h-64 sm:h-80 md:h-96 lg:h-[550px] w-full">
                 <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
