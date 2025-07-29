@@ -23,6 +23,7 @@
     "firebase": "^11.9.1",
     "framer-motion": "^12.23.9",
     "lottie-react": "^2.4.1",
+    "ogl": "^1.0.11",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.2",

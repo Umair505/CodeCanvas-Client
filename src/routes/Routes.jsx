@@ -8,11 +8,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import AddProduct from "../pages/Dashboard/Seller/AddProduct";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import Profile from "../pages/Dashboard/Common/Profile";
-import Statistics from "../pages/Dashboard/Common/Statistics";
 import MainLayout from "../layouts/MainLayout";
-import MyInventory from "../pages/Dashboard/Seller/MyInventory";
-import ManageOrders from "../pages/Dashboard/Seller/ManageOrders";
-import MyOrders from "../pages/Dashboard/Customer/MyProducts";
 import Products from "../components/Home/Products";
 import MyProducts from "../pages/Dashboard/Customer/MyProducts";
 import EditProduct from "../components/Modal/EditProduct";
@@ -20,6 +16,7 @@ import { axiosSecure } from "../hooks/useAxiosSecure";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import ProductReviewQueue from "../pages/Dashboard/Seller/ProductReviewQueue";
 import ReportedContents from "../pages/Dashboard/Seller/ReportedContents";
+import DashboardHome from "../components/Dashboard/DashboardHome";
 
 export const router = createBrowserRouter([
   {
@@ -61,7 +58,7 @@ export const router = createBrowserRouter([
         index: true,
         element: (
           <PrivateRoute>
-            <Statistics />
+            <DashboardHome />
           </PrivateRoute>
         ),
       },

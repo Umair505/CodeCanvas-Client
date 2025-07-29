@@ -42,6 +42,14 @@ const DashboardLayout = () => {
           className="p-4 md:p-6"
         >
           <div className="bg-[#1a1a2e] rounded-xl border border-[#9d00ff]/30 p-4 md:p-6">
+            <motion.h1
+              className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00f5ff] to-[#9d00ff] mb-4"
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              Dashboard
+            </motion.h1>
             <Outlet />
           </div>
         </motion.main>

@@ -20,7 +20,7 @@ import LoadingSpinner from '../../Shared/LoadingSpinner';
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const { user, logOut } = useAuth();
-  const [role,isRoleLoading] = useRole();
+  const [role] = useRole();
   
   
   const customerMenu = [
@@ -30,17 +30,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   ];
 
   const moderatorMenu = [
+    { name: 'Add Product', icon: <FiPlusSquare />, path: '/dashboard/add-product' },
     { name: 'Product Review Queue', icon: <FiCheckSquare />, path: '/dashboard/review-queue' },
     { name: 'Reported Contents', icon: <FiFlag />, path: '/dashboard/reported-contents' },
   ];
 
   const adminMenu = [
+    { name: 'Add Product', icon: <FiPlusSquare />, path: '/dashboard/add-product' },
     { name: 'Statistics', icon: <FiBarChart2 />, path: '/dashboard/statistics' },
     { name: 'Manage Users', icon: <FiUsers />, path: '/dashboard/manage-users' },
     { name: 'Manage Coupons', icon: <FiTag />, path: '/dashboard/coupons' },
   ];
 
-  if(isRoleLoading) return <LoadingSpinner />;
+
 
   return (
     <div 
