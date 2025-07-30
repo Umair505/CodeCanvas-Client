@@ -274,7 +274,7 @@ const ProductDetails = () => {
                 <Button
                   onClick={() => setShowReportModal(true)}
                   label="Report"
-                  disabled={!user || product.owner.email === user.email || product.votedBy?.includes(user.uid)}
+                  disabled={!user || product.owner.email === user.email }
                   icon={FiFlag}
                   outline
                   className="border-red-400 text-red-400 hover:bg-red-500/10"
