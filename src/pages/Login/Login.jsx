@@ -37,7 +37,7 @@ const Login = () => {
     try {
       await signIn(email, password)
       navigate(from, { replace: true })
-      toast.success(`Welcome Back ${user?.displayName}!`, {
+      toast.success(`Welcome Back !`, {
         style: {
           background: '#1a1a2e',
           color: '#00f5ff',

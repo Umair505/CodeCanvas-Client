@@ -28,15 +28,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     { name: 'Add Product', icon: <FiPlusSquare />, path: '/dashboard/add-product' },
     { name: 'My Products', icon: <FiShoppingBag />, path: '/dashboard/my-products' },
   ];
-
+  
   const moderatorMenu = [
-    { name: 'Add Product', icon: <FiPlusSquare />, path: '/dashboard/add-product' },
     { name: 'Product Review Queue', icon: <FiCheckSquare />, path: '/dashboard/review-queue' },
     { name: 'Reported Contents', icon: <FiFlag />, path: '/dashboard/reported-contents' },
   ];
-
+  
   const adminMenu = [
-    { name: 'Add Product', icon: <FiPlusSquare />, path: '/dashboard/add-product' },
+    { name: 'My Profile', icon: <FiUser />, path: '/dashboard/profile' },
     // { name: 'Statistics', icon: <FiBarChart2 />, path: '/dashboard/statistics' },
     { name: 'Manage Users', icon: <FiUsers />, path: '/dashboard/manage-users' },
     // { name: 'Manage Coupons', icon: <FiTag />, path: '/dashboard/coupons' },
