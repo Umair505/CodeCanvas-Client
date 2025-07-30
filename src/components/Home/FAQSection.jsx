@@ -52,11 +52,19 @@ const FAQSection = () => {
           transition={{ duration: 0.8 }}
         >
           <div className="w-full max-w-lg xl:max-w-xl">
-            <Lottie 
-              animationData={faqLottie} 
-              loop={true} 
-              className="w-full h-auto"
-            />
+            <Lottie
+  animationData={faqLottie}
+  className="w-full h-auto"
+  style={{
+    filter: `
+      hue-rotate(15deg) 
+      saturate(1.5)
+      brightness(0.9)
+      contrast(1.2)
+      drop-shadow(0 0 6px #9d00ff)
+    `,
+  }}
+/>
           </div>
         </motion.div>
 
