@@ -9,10 +9,12 @@ import toast from 'react-hot-toast';
 import Button from '../../components/Shared/Button/Button';
 import ConfirmationModal from '../../components/Modal/ConfirmationModal';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useRole from '../../hooks/userRole';
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
+  const [role] = useRole()
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
@@ -272,6 +274,7 @@ const ProductDetails = () => {
                 <Button
                   onClick={() => setShowReportModal(true)}
                   label="Report"
+                  disabled={!user || product.owner.email === user.email || product.votedBy?.includes(user.uid)}
                   icon={FiFlag}
                   outline
                   className="border-red-400 text-red-400 hover:bg-red-500/10"
